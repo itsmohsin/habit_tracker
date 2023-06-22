@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-class EnterNewHabitBox extends StatelessWidget {
+class MyAlertBox extends StatelessWidget {
   final controller;
   final VoidCallback onSave;
   final VoidCallback onCancel;
+  final String hintText;
 
-  const EnterNewHabitBox(
+  const MyAlertBox(
       {super.key,
       this.controller,
       required this.onSave,
-      required this.onCancel});
+      required this.onCancel,
+      required this.hintText});
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +19,14 @@ class EnterNewHabitBox extends StatelessWidget {
       backgroundColor: Colors.grey[900],
       content: TextField(
         controller: controller,
-        style: const TextStyle(color: Colors.white),
-        decoration: const InputDecoration(
-          enabledBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-          focusedBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+        style: const TextStyle(color: Color.fromRGBO(225, 225, 225, 1)),
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: TextStyle(color: Colors.grey[600]),
+          enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white)),
+          focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white)),
         ),
       ),
       actions: [
