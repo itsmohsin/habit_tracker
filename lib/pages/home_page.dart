@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/components/habit_tile.dart';
+import 'package:habit_tracker/components/monthly_summary.dart';
 import 'package:habit_tracker/components/my_fab.dart';
 import 'package:habit_tracker/components/my_alert_box.dart';
 import 'package:habit_tracker/data/habit_database.dart';
@@ -117,22 +118,33 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      floatingActionButton: MyFloatingActionButton(
-        onPressed: () => createNewHabit(),
-      ),
-      body: ListView.builder(
-        itemCount: db.todaysHabitList.length,
-        itemBuilder: (context, index) {
-          return HabitTile(
-            habitName: db.todaysHabitList[index][0],
-            habitCompleted: db.todaysHabitList[index][1],
-            onChanged: (value) => checkBoxTapped(value, index),
-            settingsTapped: (context) => openHabitSettings(index),
-            deleteTapped: (context) => deleteHabit(index),
-          );
-        },
-      ),
-    );
+        backgroundColor: Colors.grey[300],
+        floatingActionButton: MyFloatingActionButton(
+          onPressed: () => createNewHabit(),
+        ),
+        body: ListView(
+          children: [
+            // Monthly Summary Heat Map
+            MonthlySummary(
+                datasets: db.heatMapDataSet,
+                startDate: _myBox.get("START_DATE")),
+
+            // list of the habits
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: db.todaysHabitList.length,
+              itemBuilder: (context, index) {
+                return HabitTile(
+                  habitName: db.todaysHabitList[index][0],
+                  habitCompleted: db.todaysHabitList[index][1],
+                  onChanged: (value) => checkBoxTapped(value, index),
+                  settingsTapped: (context) => openHabitSettings(index),
+                  deleteTapped: (context) => deleteHabit(index),
+                );
+              },
+            ),
+          ],
+        ));
   }
 }
