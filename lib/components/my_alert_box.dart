@@ -19,7 +19,7 @@ class MyAlertBox extends StatelessWidget {
       backgroundColor: Colors.grey[900],
       content: TextField(
         controller: controller,
-        style: const TextStyle(color: Color.fromRGBO(225, 225, 225, 1)),
+        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(color: Colors.grey[600]),
